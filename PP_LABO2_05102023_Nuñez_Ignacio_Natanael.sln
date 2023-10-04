@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PP_LABO2_05102023_Nuñez_Ignacio_Natanael", "PP_LABO2_05102023_Nuñez_Ignacio_Natanael\PP_LABO2_05102023_Nuñez_Ignacio_Natanael.csproj", "{91AAE2FF-6F0C-43D5-B608-EB429341652C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "Entidades\Entidades.csproj", "{B7F12904-FF25-47CC-A02E-D8158E0109CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{91AAE2FF-6F0C-43D5-B608-EB429341652C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91AAE2FF-6F0C-43D5-B608-EB429341652C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91AAE2FF-6F0C-43D5-B608-EB429341652C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F12904-FF25-47CC-A02E-D8158E0109CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F12904-FF25-47CC-A02E-D8158E0109CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F12904-FF25-47CC-A02E-D8158E0109CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F12904-FF25-47CC-A02E-D8158E0109CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
