@@ -41,6 +41,8 @@
             this.rdbBinario = new System.Windows.Forms.RadioButton();
             this.txtSegundoOperando = new System.Windows.Forms.TextBox();
             this.txtPrimerOperando = new System.Windows.Forms.TextBox();
+            this.lBHistorial = new System.Windows.Forms.ListBox();
+            this.lblHistorial = new System.Windows.Forms.Label();
             this.grpSistema.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +72,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(268, 352);
+            this.btnLimpiar.Location = new System.Drawing.Point(281, 352);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(88, 27);
@@ -193,13 +195,35 @@
             this.txtPrimerOperando.Size = new System.Drawing.Size(116, 23);
             this.txtPrimerOperando.TabIndex = 12;
             // 
+            // lBHistorial
+            // 
+            this.lBHistorial.FormattingEnabled = true;
+            this.lBHistorial.ItemHeight = 15;
+            this.lBHistorial.Location = new System.Drawing.Point(755, 125);
+            this.lBHistorial.Name = "lBHistorial";
+            this.lBHistorial.Size = new System.Drawing.Size(281, 259);
+            this.lBHistorial.TabIndex = 13;
+            // 
+            // lblHistorial
+            // 
+            this.lblHistorial.AutoSize = true;
+            this.lblHistorial.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblHistorial.Location = new System.Drawing.Point(868, 101);
+            this.lblHistorial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblHistorial.Name = "lblHistorial";
+            this.lblHistorial.Size = new System.Drawing.Size(71, 21);
+            this.lblHistorial.TabIndex = 14;
+            this.lblHistorial.Text = "Historial";
+            // 
             // FrmCalculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.CancelButton = this.btnCerrar;
-            this.ClientSize = new System.Drawing.Size(693, 417);
+            this.ClientSize = new System.Drawing.Size(1048, 417);
+            this.Controls.Add(this.lblHistorial);
+            this.Controls.Add(this.lBHistorial);
             this.Controls.Add(this.txtPrimerOperando);
             this.Controls.Add(this.txtSegundoOperando);
             this.Controls.Add(this.grpSistema);
@@ -243,5 +267,7 @@
         private System.Windows.Forms.RadioButton rdbBinario;
         private System.Windows.Forms.TextBox txtSegundoOperando;
         private System.Windows.Forms.TextBox txtPrimerOperando;
+        private ListBox lBHistorial;
+        private Label lblHistorial;
     }
 }
