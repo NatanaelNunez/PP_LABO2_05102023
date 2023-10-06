@@ -2,234 +2,153 @@
 
 namespace Entidades
 {
-    public class Numeracion
+    public enum ESistema
     {
-        // Enumeración sistemas numéricos
-        public enum ESistema
-        {
-            Binario,
-            Decimal
-        };
+        Binario,
+        Decimal
+    }
 
-        // Atributos
-        private ESistema sistema;
-        private double valorNumerico;
+    public abstract class Numeracion
+    {
+        protected string msgError = "Numero Invalido";
+        protected string valor;
 
-        // Obtener el sistema numérico
-        public ESistema Sistema
-        {
-            get { return this.sistema; }
-        }
-
-        // Obtener el valor como cadena - serResultado
+        //
         public string Valor
         {
-            get { return this.valorNumerico.ToString(); }
+            get { return valor; }
         }
 
-        // Recibe un valor numérico y un sistema - Decimal
-        public Numeracion(double valor, ESistema sistema)
-            : this(valor.ToString(), sistema)
+        //
+        internal abstract double ValorNumerico
         {
+            get;
         }
 
-        // Recibe una cadena y un sistema - Binario
-        public Numeracion(string valor, ESistema sistema)
+        //
+        public abstract Numeracion CambiarSistemaDeNumeracion(ESistema sistema);
+
+        //
+        protected virtual bool EsNumeracionValida(string valor)
         {
-            this.InicializarValores(valor, sistema);
-        }
-
-        
-        private void InicializarValores(string valor, ESistema sistema)
-        {
-
-            this.sistema = sistema; // Me faltaba asignar el sistema
-
-            if (sistema == ESistema.Decimal)
-            {
-                double.TryParse(valor, out this.valorNumerico);
-            }
-            else if (sistema == ESistema.Binario)
-            {
-                this.valorNumerico = this.BinarioDecimal(valor);
-            }
-            else
-            {
-                this.valorNumerico = double.MinValue;
-            }
-        }
-
-        // Verificar si una cadena es binaria
-        private bool EsBinario(string valor)
-        {
-            if (string.IsNullOrEmpty(valor))
+            if (valor == null)
             {
                 return false;
             }
-
-            for (int i = 0; i < valor.Length; i++)
+            else
             {
-                if (valor[i] != '0' && valor[i] != '1')
+                foreach (char c in valor)
                 {
-                    return false;
+                    if (c != ' ')
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return true;
+            return false;
         }
 
-        // Convertir a un sistema numérico especificado - El ValorNumerico ya con su resultado
-        public string ConvertirA(ESistema sistema)
+        private void InicializaValor(string valor)
         {
-            if (sistema == ESistema.Binario)
+            if (EsNumeracionValida(valor))
             {
-                if (this.valorNumerico == (int)this.valorNumerico)
-                {
-                    return DecimalBinario((int)this.valorNumerico);
-                }
-                else
-                {
-                    return DecimalBinario(this.valorNumerico.ToString());
-                }
-            }
-            else if (sistema == ESistema.Decimal)
-            {
-                return this.valorNumerico.ToString();
+                this.valor = valor;
             }
             else
             {
-                return "Número inválido";
+                this.valor = msgError;
             }
         }
 
-        // decimal a binario
-        private string DecimalBinario(int valor)
+        //
+        protected Numeracion()
         {
-            if (valor == 0)
-            {
-                return "0";
-            }
-            else if (valor < 0)
-            {
-                return "Número inválido"; // numero binario negativo
-            }
-
-            string valorBinario = "";
-
-            while (valor > 0)
-            {
-                int resto = valor % 2;
-                valorBinario = resto + valorBinario;
-                valor /= 2;
-            }
-
-            return valorBinario;
+            InicializaValor("");
         }
 
-        // decimal a binario (con sobrecarga)
-        private string DecimalBinario(string valor)
+        protected Numeracion(string valor)
         {
-            double.TryParse(valor, out double resultadoDiv);
-            double restoDiv;
-
-            if (string.IsNullOrEmpty(valor))
-            {
-                do
-                {
-                    restoDiv = resultadoDiv % 2;
-                    resultadoDiv /= 2;
-                    valor = resultadoDiv.ToString() + valor;
-
-                } while (resultadoDiv > 0);
-            }
-            else
-            {
-                return "Numero invalido";
-            }
-
-            return valor;
+            InicializaValor(valor);
         }
 
-        // binario a decimal
-        private double BinarioDecimal(string valor)
+        // Conversión explicita de Numeración a double. Esta devolverá el valor de la Numeración.
+        public static explicit operator double(Numeracion numeracion)
         {
-            if (this.EsBinario(valor))
-            {
-                double resultado = 0;
-                int longitudDelValor = valor.Length;
-
-                for (int i = 0; i < longitudDelValor; i++)
-                {
-                    int digito = valor[i] - '0';
-                    resultado += digito * Math.Pow(2, longitudDelValor - i - 1);
-                }
-                return resultado;
-            }
-            else
-            {
-                return 0; // Número binario inválido
-            }
+            return numeracion.ValorNumerico;
         }
 
 
         // Sobrecarga de operadores de comparación
         public static bool operator ==(Numeracion numeroUno, Numeracion numeroDos)
         {
+            if (numeroUno is null && numeroDos is null)
+            {
+                return true; // Ambos son nulos, considerados iguales
+            }
             if (numeroUno is null || numeroDos is null)
             {
-                return false;
+                return false; // Uno de ellos es nulo, considerados diferentes
             }
 
-            return numeroUno.valorNumerico == numeroDos.valorNumerico && numeroUno.Sistema == numeroDos.Sistema;
+            return numeroUno.ValorNumerico == numeroDos.ValorNumerico;
         }
 
         public static bool operator !=(Numeracion numeroUno, Numeracion numeroDos)
         {
-            if (numeroUno is null || numeroDos is null)
-            {
-                return false;
-            }
-
             return !(numeroUno == numeroDos);
         }
 
-        public static bool operator ==(ESistema sistema, Numeracion numeracion)
+        // Aritmetica 
+        public static double operator +(Numeracion n1, Numeracion n2)
         {
-            return sistema == (ESistema)numeracion.valorNumerico;
-        }
-
-        public static bool operator !=(ESistema sistema, Numeracion numeracion)
-        {
-            return !(sistema == numeracion);
-        }
-
-        // Sobrecarga de operaciones
-        public static Numeracion operator +(Numeracion n1, Numeracion n2)
-        {
-            double resultado = n1.valorNumerico + n2.valorNumerico;
-            return new Numeracion(resultado, n1.Sistema);
-        }
-        public static Numeracion operator -(Numeracion n1, Numeracion n2)
-        {
-            double resultado = n1.valorNumerico - n2.valorNumerico;
-            return new Numeracion(resultado, n1.Sistema);
-        }
-
-        public static Numeracion operator *(Numeracion n1, Numeracion n2)
-        {
-            double resultado = n1.valorNumerico * n2.valorNumerico;
-            return new Numeracion(resultado, n1.Sistema);
-        }
-
-        public static Numeracion operator /(Numeracion n1, Numeracion n2)
-        {
-            if (n2.valorNumerico == 0)
+            if (n1.GetType() != n2.GetType())
             {
-                return new Numeracion("Número inválido - Division por cero", ESistema.Decimal);
+                throw new InvalidOperationException("Operación inválida entre diferentes tipos de Numeración.");
             }
 
-            double resultado = n1.valorNumerico / n2.valorNumerico;
-            return new Numeracion(resultado, n1.Sistema);
+            double resultadoNumerico = n1.ValorNumerico + n2.ValorNumerico;
+            return resultadoNumerico;
         }
+
+        public static double operator -(Numeracion n1, Numeracion n2)
+        {
+            if (n1.GetType() != n2.GetType())
+            {
+                throw new InvalidOperationException("Operación inválida entre diferentes tipos de Numeración.");
+            }
+
+            double resultadoNumerico = n1.ValorNumerico - n2.ValorNumerico;
+            return resultadoNumerico;
+        }
+
+        public static double operator *(Numeracion n1, Numeracion n2)
+        {
+            if (n1.GetType() != n2.GetType())
+            {
+                throw new InvalidOperationException("Operación inválida entre diferentes tipos de Numeración.");
+            }
+
+            double resultadoNumerico = n1.ValorNumerico * n2.ValorNumerico;
+            return resultadoNumerico;
+        }
+
+        public static double operator /(Numeracion n1, Numeracion n2)
+        {
+            if (n1.GetType() != n2.GetType())
+            {
+                throw new InvalidOperationException("Operación inválida entre diferentes tipos de Numeración.");
+            }
+
+            if (n2.ValorNumerico == 0)
+            {
+                throw new InvalidOperationException("Número inválido - División por cero");
+            }
+
+            double resultadoNumerico = n1.ValorNumerico / n2.ValorNumerico;
+            return resultadoNumerico;
+        }
+
     }
+
 }

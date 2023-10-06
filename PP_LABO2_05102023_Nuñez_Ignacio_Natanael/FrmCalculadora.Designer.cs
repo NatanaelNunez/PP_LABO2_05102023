@@ -41,7 +41,7 @@
             this.rdbBinario = new System.Windows.Forms.RadioButton();
             this.txtSegundoOperando = new System.Windows.Forms.TextBox();
             this.txtPrimerOperando = new System.Windows.Forms.TextBox();
-            this.lBHistorial = new System.Windows.Forms.ListBox();
+            this.lstHistorial = new System.Windows.Forms.ListBox();
             this.lblHistorial = new System.Windows.Forms.Label();
             this.grpSistema.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(281, 352);
+            this.btnLimpiar.Location = new System.Drawing.Point(268, 352);
             this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(88, 27);
@@ -83,7 +83,6 @@
             // 
             // btnOperar
             // 
-            this.btnOperar.Enabled = false;
             this.btnOperar.Location = new System.Drawing.Point(55, 352);
             this.btnOperar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOperar.Name = "btnOperar";
@@ -150,6 +149,7 @@
             this.grpSistema.TabStop = false;
             this.grpSistema.Text = "Representar resultado en:";
             this.grpSistema.UseWaitCursor = true;
+            this.grpSistema.Enter += new System.EventHandler(this.grpSistema_Enter_1);
             // 
             // rdbDecimal
             // 
@@ -195,23 +195,24 @@
             this.txtPrimerOperando.Size = new System.Drawing.Size(116, 23);
             this.txtPrimerOperando.TabIndex = 12;
             // 
-            // lBHistorial
+            // lstHistorial
             // 
-            this.lBHistorial.FormattingEnabled = true;
-            this.lBHistorial.ItemHeight = 15;
-            this.lBHistorial.Location = new System.Drawing.Point(755, 125);
-            this.lBHistorial.Name = "lBHistorial";
-            this.lBHistorial.Size = new System.Drawing.Size(281, 259);
-            this.lBHistorial.TabIndex = 13;
+            this.lstHistorial.FormattingEnabled = true;
+            this.lstHistorial.ItemHeight = 15;
+            this.lstHistorial.Location = new System.Drawing.Point(662, 135);
+            this.lstHistorial.Name = "lstHistorial";
+            this.lstHistorial.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lstHistorial.Size = new System.Drawing.Size(219, 244);
+            this.lstHistorial.TabIndex = 13;
+            this.lstHistorial.SelectedIndexChanged += new System.EventHandler(this.lstHistorial_SelectedIndexChanged);
             // 
             // lblHistorial
             // 
             this.lblHistorial.AutoSize = true;
-            this.lblHistorial.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblHistorial.Location = new System.Drawing.Point(868, 101);
+            this.lblHistorial.Location = new System.Drawing.Point(751, 117);
             this.lblHistorial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblHistorial.Name = "lblHistorial";
-            this.lblHistorial.Size = new System.Drawing.Size(71, 21);
+            this.lblHistorial.Size = new System.Drawing.Size(51, 15);
             this.lblHistorial.TabIndex = 14;
             this.lblHistorial.Text = "Historial";
             // 
@@ -221,9 +222,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.CancelButton = this.btnCerrar;
-            this.ClientSize = new System.Drawing.Size(1048, 417);
+            this.ClientSize = new System.Drawing.Size(893, 417);
             this.Controls.Add(this.lblHistorial);
-            this.Controls.Add(this.lBHistorial);
+            this.Controls.Add(this.lstHistorial);
             this.Controls.Add(this.txtPrimerOperando);
             this.Controls.Add(this.txtSegundoOperando);
             this.Controls.Add(this.grpSistema);
@@ -267,7 +268,7 @@
         private System.Windows.Forms.RadioButton rdbBinario;
         private System.Windows.Forms.TextBox txtSegundoOperando;
         private System.Windows.Forms.TextBox txtPrimerOperando;
-        private ListBox lBHistorial;
+        private ListBox lstHistorial;
         private Label lblHistorial;
     }
 }
